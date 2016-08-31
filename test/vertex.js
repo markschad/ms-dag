@@ -200,11 +200,31 @@ describe("Vertex", function() {
 		});
 		describe("when this Vertex's 'previous' property is set", function() {
 			it("should set the 'next' property of this Vertex's 'previous' property to be the Vertex given by this Vertex's 'next' property.", function() {
-
+				let v0 = new Vertex(0);
+				let v1 = new Vertex(1);
+				let v2 = new Vertex(2);
+				// v0 > v1 > v2
+				v0.insertBelow(v1);
+				v1.insertBelow(v2);
+				var prev = v1._previous;	// v0
+				var next = v1._next;			// v2
+				v1.remove();
+				expect(prev._next).to.equal(next);
 			});
 		});
 		describe("when this Vertex's 'next' property is set", function() {
-			it("should set the 'previous' property of this Vertex's 'next' property to be the Vertex given by this Vertex's 'previous' property.");
+			it("should set the 'previous' property of this Vertex's 'next' property to be the Vertex given by this Vertex's 'previous' property.", function() {
+				let v0 = new Vertex(0);
+				let v1 = new Vertex(1);
+				let v2 = new Vertex(2);
+				// v0 > v1 > v2
+				v0.insertBelow(v1);
+				v1.insertBelow(v2);
+				var prev = v1._previous;	// v0
+				var next = v1._next;			// v2
+				v1.remove();
+				expect(next._previous).to.equal(prev);
+			});
 		});
 	});
 	
