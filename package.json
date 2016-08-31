@@ -1,0 +1,31 @@
+{
+  "name": "ms-dag",
+  "version": "1.0.0",
+  "description": "Directed Acyclic Graph",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markschad/ms-dag.git"
+  },
+  "keywords": [
+    "directed",
+    "acyclic",
+    "graph",
+    "dag"
+  ],
+  "author": "Mark Schad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/markschad/ms-dag/issues"
+  },
+  "homepage": "https://github.com/markschad/ms-dag#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "mocha-clean": "^1.0.0",
+    "tape": "^4.6.0"
+  }
+}
