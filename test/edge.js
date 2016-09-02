@@ -22,9 +22,18 @@ describe("Edge", function() {
 			];
 		});
 		afterEach(function() { arr = null; });
-		it("should not insert a duplicate item.", function() {
-			Edge.insert(arr, new Edge(vertices[1], vertices[4]));
-			expect(arr).to.have.length(4);
+		describe("when the given edge already exists in the array", function() {
+			it("should not insert a duplicate item.", function() {
+				Edge.insert(arr, new Edge(vertices[1], vertices[4]));
+				expect(arr).to.have.length(4);
+			});
+			it("should return -1.", function() {
+				var result = Edge.insert(arr, new Edge(vertices[1], vertices[4]));
+				expect(result).to.equal(-1);
+			});
+		});
+		describe("when the given edge does not exist in the array.", function() {
+
 		});
 		it("should prioritise the 'from' id over the to 'id'.", function() {
 			let e = new Edge(vertices[0], vertices[4]);

@@ -1,4 +1,4 @@
-var _ = require('lodash');
+var _ = require("lodash");
 var expect = require("chai").expect;
 var Vertex = require("../lib/graph/vertex.js");
 var Edge = require("../lib/graph/edge.js");
@@ -11,13 +11,13 @@ describe("Vertex", function() {
 	 * 	0 ──────┬───────┐
 	 *    *     │       │
 	 *      1   |       │
-	 *      │ * V       │
+	 *      │ * |       │
 	 *      │   2       │
 	 *      │     *     │
-	 *      └──────>3   |
-	 *                * V
+	 *      └─────> 3   |
+	 *                * |
 	 *                  4 ──┐
-	 *                    * V
+	 *                    * |
 	 *                      5
 	 */
 	var mockupChain = function() {
@@ -74,6 +74,20 @@ describe("Vertex", function() {
 				expect(new Vertex(0)).to.have.property("_downlinks").with.length(0);
 			});
 		});
+	});
+
+	describe("#Edge [static]", function() {
+		it("should return the Edge constructor.", function() {
+			expect(Vertex.Edge).to.equal(Edge);
+		});
+	});
+
+	describe("#insert() [static]", function() {
+		it("should insert the vertex into the array such that the array maintains order.");
+	});
+
+	describe("#insertAll() [static]", function() {
+		it("should insert the vertex into the array such that the array maintains order.");
 	});
 
 	describe("#previous", function() {
@@ -247,7 +261,7 @@ describe("Vertex", function() {
 		});
 		it("should contain each Vertex which connects to this Vertex by an Edge.", function() {
 			mockupChain();
-			expect(vertices[5].upstream).to.eql([ vertices[4], vertices[0] ]);
+			expect(vertices[5].upstream).to.eql([ vertices[0], vertices[4] ]);
 		});
 	});	
 
@@ -259,12 +273,6 @@ describe("Vertex", function() {
 		it("should contain each Vertex to which this Vertex connects by an Edge.", function() {
 			mockupChain();
 			expect(vertices[0].downstream).to.eql([ vertices[2], vertices[4], vertices[5] ]);
-		});
-	});
-
-	describe("#reflow", function() {
-		it('should move all downlinks which are before this vertex after this vertex.', function() {
-			mockupChain();
 		});
 	});
 
@@ -307,16 +315,23 @@ describe("Vertex", function() {
 				expect(vertices[2]._uplinks).to.include(e);
 			});
 			describe("when the given Vertex is above this Vertex in the trunk.", function() {
-				it("should move this Vertex before the given Vertex", function() {
-					let e = vertices[4].connect(vertices[1]);
-					expect(vertices[4]._next).to.equal(vertices[1]);
+				it("should move vertex 1 behind vertex 2.", function() {
+					let e = vertices[2].connect(vertices[1]);
+					expect(vertices[2]._next).to.equal(vertices[1]);
+					expect(vertices[1]._next).to.equal(vertices[3]);
+				});
+				it("should move vertex 1 and 3 behind vertex 5.", function() {
+					let e = vertices[5].connect(vertices[1]);
+					expect(vertices[5]._next).to.equal(vertices[1]);
+					expect(vertices[1]._next).to.equal(vertices[3]);
+				});
+				it("should move vertex 2 behind vertex 3.", function() {
+					let e = vertices[3].connect(vertices[2]);
+					expect(vertices[3]._next).to.equal(vertices[2]);
+					expect(vertices[2]._next).to.equal(vertices[4]);
 				});
 			});
 		});
-	});
-
-	describe("static #sort()", function() {
-		it("should return an array of Vertices sorted by id.");
 	});
 
 });
